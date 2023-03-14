@@ -1,0 +1,23 @@
+{
+    "name": "leavesystem",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha test",
+        "start": "nodemon index.js"
+    },
+    "author": "marajul-enosis",
+    "license": "ISC",
+    "dependencies": {
+        "cookie-parser": "^1.4.6",
+        "crypto": "^1.0.1",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
+        "pg": "^8.10.0",
+        "pg-hstore": "^2.3.4",
+        "sequelize": "^6.29.3",
+        "sha256": "^0.2.0"
+    }
+}
