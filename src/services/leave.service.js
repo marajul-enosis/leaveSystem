@@ -1,13 +1,13 @@
 const leave = require('../models/leave');
 const { Op } = require("sequelize");
-var leaveDao = {
+var leaveService = {
     findAll: findAll,
     create: create,
     findById: findById,
     deleteById: deleteById,
     updateUser: updateUser,
     findByEmail: findByEmail,
-    CountByEmail: CountByEmail
+    countByDate: CountByDate
 }
 
 function findAll() {
@@ -22,7 +22,13 @@ function CountByDate(id,from,to) {
     // console.log(email)
     return leave.count({where:{
         userId:id,
-        from:[]
+        from:{
+            [Op.and]:{
+                [Op.gte]:from,
+                [Op.lte]: to
+            }
+            
+        }
     }});
 }
 
@@ -47,4 +53,4 @@ function updateUser(user, id) {
     };
     return Gig.update(updateuser, { where: { id: id } });
 }
-module.exports = leaveDao;
+module.exports = leaveService;

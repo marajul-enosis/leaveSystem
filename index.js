@@ -2,7 +2,7 @@ const express = require('express');
 const {authRoute,userRoute,leaveRoute} = require('./src/routes')
 const db = require('./src/configs/db.config');
 const cookieParser = require("cookie-parser");
-
+const relationship = require('./src/models/relationship');
 const app = express();
 
 app.use(express.json());

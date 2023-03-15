@@ -15,7 +15,7 @@ const leave = db.define('leave',{
         allowNull: false,
         validate:{
             ValidateFromTodateRange(value){
-                if(value>=this.to){
+                if(value>this.to){
                     throw new Error('To date must be greater that From')
                 }
             }
