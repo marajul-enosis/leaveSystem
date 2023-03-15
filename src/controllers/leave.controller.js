@@ -36,8 +36,56 @@ async function createLeave(req,res,next){
     
 }
 
+async function getOwnLeaves(req,res,next){
+    try{
+        const {userId} = req.user;
+        const result = await leaveService.findByUserId(userId);
+        sendSuccess(res,200,result);
+    }catch(error){
+        sendError(res,400,error);
+    }
+}
+
+async function getLeaveById(req,res,next){
+    try{
+        const leaveId = req.params.id;
+        const result = await leaveService.findById(leaveId);
+        sendSuccess(res,200,result);
+    }catch(error){
+        sendError(res,400,error);
+    }
+}
+
+async function getAllLeaves(req,res,next){
+    try{
+        const result = await leaveService.findAll();
+        sendSuccess(res,200,result);
+    }catch(error){
+        sendError(res,400,error);
+    }
+}
+
+async function deleteLeave(req,res,next){
+    try{
+        const leaveId = req.params.id;
+        const result = await leaveService.deleteById(leaveId);
+        sendSuccess(res,200,result);
+    }catch(error){
+        sendError(res,400,error);
+    }
+}
+
+async function updateLeave(req,res,next){
+    
+}
+
 var leaveController = {
-    createLeave
+    createLeave,
+    getOwnLeaves,
+    getLeaveById,
+    getAllLeaves,
+    deleteLeave,
+    updateLeave
 }
 
 module.exports = leaveController;

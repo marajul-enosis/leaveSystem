@@ -7,7 +7,8 @@ var leaveService = {
     deleteById: deleteById,
     updateUser: updateUser,
     findByEmail: findByEmail,
-    countByDate: CountByDate
+    countByDate: CountByDate,
+    findByUserId: findByUserId
 }
 
 function findAll() {
@@ -16,6 +17,12 @@ function findAll() {
 
 function findById(id) {
     return leave.findByPk(id);
+}
+
+function findByUserId(id) {
+    return leave.findAll({where:{
+        userId:id
+    }});
 }
 
 function CountByDate(id,from,to) {

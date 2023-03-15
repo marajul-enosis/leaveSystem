@@ -12,6 +12,14 @@ leaveRouter.use(authMiddleware)
 // leaveRouter.delete('/:id',userController.deleteUser)
 
 leaveRouter.post('/', leaveController.createLeave)
+leaveRouter.get('/', leaveController.getOwnLeaves)
+leaveRouter.get('/all', leaveController.getAllLeaves)
+leaveRouter.get('/:id', leaveController.getLeaveById)
+
+leaveRouter.delete('/:id',leaveController.deleteLeave)
+leaveRouter.put('/:id',leaveController.updateLeave)
+
+
 
 module.exports = leaveRouter;
 
