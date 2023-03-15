@@ -1,5 +1,5 @@
 const express = require('express');
-const {authRoute,userRoute} = require('./src/routes')
+const {authRoute,userRoute,leaveRoute} = require('./src/routes')
 const db = require('./src/configs/db.config');
 const cookieParser = require("cookie-parser");
 
@@ -16,6 +16,7 @@ db.authenticate().then(()=>{
 
 app.use('/auth',authRoute)
 app.use('/user',userRoute)
+app.use('/leave',leaveRoute)
 
 
 
