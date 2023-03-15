@@ -36,13 +36,24 @@ function validateToken(token) {
   }
 }
 
+function buildErrorFromSequelize(err) {
+  let returnErr = {};
+  if (err.errors) {
+    err.errors.forEach((error) => {
+        returnErr[error.path] = error.message;
+    });
+  }
+  return returnErr;
+}
+
 
 var helper = {
   hash,
   sendError,
   sendSuccess,
   generateAuthToken,
-  validateToken
+  validateToken,
+  buildErrorFromSequelize
 }
 
 module.exports = helper;
