@@ -1,6 +1,7 @@
 
 const userService = require('../services/user.service');
-const {sendError, sendSuccess,hash ,generateAuthToken} = require('../helpers/common.helper');
+const {sendError, sendSuccess,hash ,generateAuthToken,buildErrorFromSequelize} = require('../helpers/common.helper');
+const user = require('../models/user');
 
 
 
@@ -24,7 +25,7 @@ async function login(req,res,next){
     }
 
     if(queryres.password != hash(password)){
-        sendError(res,400, new Error("Email or password is incorrect"));
+        sendError(res,400, new Error("Password is incorrect"));
         return;
     }else{
         
@@ -46,9 +47,36 @@ async function login(req,res,next){
 
     // res.send(result);
 
-} 
+}
 
+
+async function register(req,res,next){
+    const body = req.body;
+
+    const newUser = new user(body);
+
+    try{
+        const valRes = await newUser.validate();
+    }catch(error){
+        res.status(400).send({ status:"error", error: buildErrorFromSequelize(error) });
+    }
+
+    const result = await userService.CountByEmail(body.email);
+
+    // console.log(result);
+    
+    if(result!=0){
+        sendError(res,400, new Error("Email already exists"));
+        return;
+    }else{
+         userService.create(body).then((data)=>{
+            sendSuccess(res,200,data);
+        }).catch((error)=>{
+            sendError(res,400,error);
+        })
+    }
+}
 
 module.exports = {
-    login
+    login,register
 }
