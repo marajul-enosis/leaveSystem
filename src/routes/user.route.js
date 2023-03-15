@@ -8,8 +8,7 @@ userRouter.use(authMiddleware)
 
 userRouter.get('/:id', userController.getUser)
 userRouter.get('/', userController.getUsers)
-userRouter.post('/', userController.createUser)
-userRouter.put('/', userController.updateUser)
+userRouter.put('/:id', userController.updateUser)
 userRouter.delete('/:id',userController.deleteUser)
 
 module.exports = userRouter;

@@ -1,4 +1,4 @@
-const {user} = require('../models/model');
+const user = require('../models/user');
 var userDao = {
     findAll: findAll,
     create: create,
@@ -10,7 +10,11 @@ var userDao = {
 }
 
 function findAll() {
-    return user.findAll();
+    return user.findAll({
+        order: [
+            ['id', 'ASC'],
+        ]
+    });
 }
 
 function findById(id) {
@@ -39,10 +43,7 @@ function create(gig) {
     return newGig.save();
 }
 
-function updateUser(user, id) {
-    var updateuser = {
-        name: user.name,
-    };
-    return Gig.update(updateuser, { where: { id: id } });
+function updateUser(updateuser, id) {
+    return user.update(updateuser, { where: { id: id } });
 }
 module.exports = userDao;
