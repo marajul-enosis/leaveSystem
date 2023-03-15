@@ -13,7 +13,7 @@ function authMiddleware(req, res, next) {
     // If there is no token, return an error
     if (!token) {
         res.status(401).send({ status: "error", error: "Access denied. No token provided." });
-        return next(new Error("Access denied. No token provided."))
+        return res.end();
     }
 
     // If there is a token, validate it
@@ -23,8 +23,8 @@ function authMiddleware(req, res, next) {
         next();
     } catch (ex) {
         res.status(400).send({ status: "error", error: "Invalid token." });
-        res.end();
-        return next(new Error("Invalid token."));
+        return res.end();
+        
     }
 
 }
