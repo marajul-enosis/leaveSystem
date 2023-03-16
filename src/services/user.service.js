@@ -21,6 +21,7 @@ function findById(id) {
     return user.findByPk(id);
 }
 
+
 function CountByEmail(email) {
     // console.log(email)
     return user.count({where:{
@@ -44,6 +45,6 @@ function create(gig) {
 }
 
 function updateUser(updateuser, id) {
-    return user.update(updateuser, { where: { id: id } });
+    return user.update(updateuser, { where: { id: id },  returning: true, plain: true  })
 }
 module.exports = userDao;
