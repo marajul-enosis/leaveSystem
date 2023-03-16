@@ -76,7 +76,42 @@ async function deleteLeave(req,res,next){
 }
 
 async function updateLeave(req,res,next){
-    
+    const { id } = req.params;  
+    const { from, to, reason, status, emergencyContact } = req.body;
+    const {userId} = req.user;
+
+    const leaveToUpdate = await leaveService.findByIdAndUserId(id,userId);
+
+    if (!leaveToUpdate) {
+        sendError(res,400, new Error("Leave does not exist or user does not have permission to update this leave"));
+        res.end();
+        return;
+    }
+
+    leaveToUpdate.from = from || leaveToUpdate.from;
+    leaveToUpdate.to = to || leaveToUpdate.to;
+    leaveToUpdate.reason = reason || leaveToUpdate.reason;
+    leaveToUpdate.status = status || leaveToUpdate.status;
+    leaveToUpdate.emergencyContact = emergencyContact || leaveToUpdate.emergencyContact;
+
+    try{
+        const UpdatedLeave = new leave(leaveToUpdate);
+        const valRes = await UpdatedLeave.validate();
+    }catch(error){
+        sendError(res,400,error);
+        res.end();
+        return;
+    }
+
+    // excute the query 
+    try{
+        const [num,Val] = await leaveService.updateLeave(leaveToUpdate,id);
+        sendSuccess(res,200,Val);
+    }catch(error){
+        sendError(res,400,error);
+    }
+
+
 }
 
 var leaveController = {

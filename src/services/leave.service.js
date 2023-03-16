@@ -5,10 +5,11 @@ var leaveService = {
     create: create,
     findById: findById,
     deleteById: deleteById,
-    updateUser: updateUser,
+    updateLeave: updateLeave,
     findByEmail: findByEmail,
     countByDate: CountByDate,
-    findByUserId: findByUserId
+    findByUserId: findByUserId,
+    findByIdAndUserId: findByIdAndUserId
 }
 
 function findAll() {
@@ -22,6 +23,12 @@ function findById(id) {
 function findByUserId(id) {
     return leave.findAll({where:{
         userId:id
+    }});
+}
+function findByIdAndUserId(id,userId) {
+    return leave.findOne({where:{
+        userId:userId,
+        id:id
     }});
 }
 
@@ -54,10 +61,8 @@ function create(gig) {
     return newGig.save();
 }
 
-function updateUser(user, id) {
-    var updateuser = {
-        name: user.name,
-    };
-    return Gig.update(updateuser, { where: { id: id } });
+function updateLeave(Updatedleave, leaaveId) {
+
+    return leave.update(Updatedleave, { where: { id: leaaveId }, returning: true, plain: true });
 }
 module.exports = leaveService;
