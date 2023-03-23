@@ -4,8 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "mocha test",
-        "start": "nodemon index.js"
+        "test": "mocha test/*.test.js",
+        "start": "node index.js",
+        "dev": "nodemone index.js"
     },
     "author": "marajul-enosis",
     "license": "ISC",
@@ -19,5 +20,10 @@
         "pg-hstore": "^2.3.4",
         "sequelize": "^6.29.3",
         "sha256": "^0.2.0"
+    },
+    "devDependencies": {
+        "chai": "^4.3.7",
+        "mocha": "^10.2.0",
+        "supertest": "^6.3.3"
     }
 }
